@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<digester-rules>
+	<pattern value="db-config">
+		<object-create-rule classname="com.ai.aif.cache.voltdb.core.cfg.pojo.BaseCfg" />
+
+		<bean-property-setter-rule pattern="datasource-lbs"
+			propertyname="loadType" />
+		<bean-property-setter-rule pattern="detection-interval"
+			propertyname="interval" />
+   
+		<pattern value="lru">
+			<object-create-rule classname="com.ai.aif.cache.voltdb.core.cfg.pojo.LRUNode" />
+
+			<pattern value="property">
+				<object-create-rule
+					classname="com.ai.aif.cache.voltdb.core.cfg.pojo.PropertyNode" />
+				<set-properties-rule />
+				<set-next-rule methodname="setNodeValue" />
+			</pattern>
+			<set-next-rule methodname="setLruInfo" />
+		</pattern>
+		
+		<pattern value="datasource-list/datasource">
+			<object-create-rule classname="com.ai.aif.cache.voltdb.core.cfg.pojo.DBNode" />
+			<set-properties-rule>
+				<alias attr-name="dbtype" prop-name="dbType" />
+			</set-properties-rule>
+			<pattern value="property">
+				<object-create-rule
+					classname="com.ai.aif.cache.voltdb.core.cfg.pojo.PropertyNode" />
+				<set-properties-rule />
+				<set-next-rule methodname="setNodeValue" />
+			</pattern>
+
+			<set-next-rule methodname="addDB" />
+		</pattern>
+	</pattern>
+
+</digester-rules>
