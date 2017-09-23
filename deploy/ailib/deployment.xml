@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<deployment>
+
+    <cluster hostcount="1" sitesperhost="1" kfactor="0"/>
+	
+    <paths>
+        <voltdbroot path="/home/voltdb/airoot" />
+    </paths>
+	
+    <security enabled="true"/>
+    
+	<!--
+    <users>
+	   <user name="yougw" password="yougw" roles="ADMINISTRATOR" />
+       <user name="test" password="yougw" roles="SQL"/>
+    </users>
+	-->
+	
+</deployment>

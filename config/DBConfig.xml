@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="gb2312"?>
+<db-config>
+
+	<!-- 随机负载策略:RANDOM, 轮询负载策略:ROUND -->
+	<datasource-lbs>ROUND</datasource-lbs>
+
+	<lru>
+		<!-- 二级缓存大小上限,单位M -->
+		<property name="maxSize" value="100" />
+		<!-- 桶数量 -->
+		<property name="bucketCount" value="5"/>
+	</lru>
+
+	<!-- 数据源配置 -->
+	<datasource-list>
+		<datasource dbtype="VoltDB">
+			<property name="driverClassName" value="org.voltdb.jdbc.Driver" />
+			<property name="url" value="jdbc:voltdb://192.168.99.134:21212" />
+			<property name="username" value="" />
+			<property name="password" value="" />
+			<property name="initialSize" value="1" />
+			<property name="maxActive" value="5" />
+			<property name="maxIdle" value="5" />
+			<property name="minIdle" value="1" />
+			<property name="maxWait" value="5000" />
+			<property name="connectionProperties" value="useUnicode=true;characterEncoding=gbk" />
+		</datasource>
+		<datasource dbtype="VoltDB">
+			<property name="driverClassName" value="org.voltdb.jdbc.Driver" />
+			<property name="url" value="jdbc:voltdb://192.168.99.135:21212" />
+			<property name="username" value="" />
+			<property name="password" value="" />
+			<property name="initialSize" value="1" />
+			<property name="maxActive" value="5" />
+			<property name="maxIdle" value="5" />
+			<property name="minIdle" value="1" />
+			<property name="maxWait" value="5000" />
+			<property name="connectionProperties" value="useUnicode=true;characterEncoding=gbk" />
+		</datasource>
+	</datasource-list>
+
+</db-config>

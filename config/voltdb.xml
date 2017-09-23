@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 快立方配置文件 -->
+<voltdb>
+
+	<!-- 本地缓存配置 -->
+	<localcache>
+		<!-- 桶数量 -->
+		<property name="bucketCount" value="5" />
+		<!-- 最大限制(单位 M) -->
+		<property name="maxSize" value="10" />
+	</localcache>
+	    
+    <!-- 随机负载策略:RANDOM, 轮询负载策略:ROBIN -->
+    <datasource-lbs>
+    <property name="strategy" value="RANDOM"/>
+    </datasource-lbs>
+	
+	<!-- 连接池有效性定时检查任务 -->
+	<checktask>
+		<!-- delay时间后开始执行任务(单位/秒) -->
+		<property name="delay" value="5"/>
+		<!-- 任务间隔时间period(单位/秒)-->
+		<property name="period" value="10"/>
+		<!-- 有效性检查SQL -->
+		<property name="sql" value="select * from dual"/>
+	</checktask>
+	
+	<!-- 数据库配置 -->
+	<datasource>
+		<pool name="pool1">
+			<property name="dbName" value="test"/>
+		    <property name="host" value="192.168.81.127"/>
+		    <property name="port" value="21212"/>
+		    <property name="username" value="gaojy"/>
+		    <property name="password" value="none"/>
+		    <property name="maxActive" value="8"/>
+		    <property name="maxIdle" value="8"/>
+		    <property name="minIdle" value="8"/>
+		    <property name="maxWait" value="-1"/>
+		</pool>
+		<!-- <pool name="pool1">
+			<property name="dbName" value="test"/>
+		    <property name="hosts" value="10.21.20.107"/>
+		    <property name="port" value="22581"/>
+		    <property name="username" value="TEST"/>
+		    <property name="password" value="test"/>
+		    <property name="maxActive" value="8"/>
+		    <property name="maxIdle" value="8"/>
+		    <property name="minIdle" value="8"/>
+		    <property name="maxWait" value="-1"/>
+		</pool> -->
+	</datasource>
+</voltdb>

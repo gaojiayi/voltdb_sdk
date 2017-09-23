@@ -1,0 +1,122 @@
+<?xml version="1.0" ?>
+<project default="main" name="voltdb sdk">
+
+	<!--
+***************************************
+PATHS AND PROPERTIES
+***************************************
+-->
+
+	<!-- make environment var FOO available as env.FOO -->
+	<property environment="env" />
+
+	<property name="voltdb.sdk.lib" value="lib/" />
+	<property name="voltdb.lib" value="D:\Working software\Voltdb\voltdb-3.6" />
+	<!--property name="voltdb.lib" value="D:\Working software\Voltdb\voltdb-voltdb-6.0.1" /-->
+	<property name="voltdb.sdk.name" value="ai-voltdb-sdk.jar" />
+	<property name='build.dir' location='build/' />
+	<property name='src.dir' location='src/' />
+	<property name='junit.haltonfailure' value='true' />
+	<property name='deploy.dir' value='deploy' />
+	<property name='db.service.name' value='ai-voltdb-server.jar' />
+	<property name='deploy.name' value='ai-voltdb.zip'>
+	</property>
+
+	<path id='project.classpath'>
+		<pathelement location='${build.dir}' />
+		<fileset dir='${voltdb.sdk.lib}'>
+			<include name='*.jar' />
+		</fileset>
+		<pathelement path="${java.class.path}" />
+	</path>
+
+	<path id='voltdb.classpath'>
+		<fileset dir='${voltdb.lib}/voltdb'>
+			<include name='*.jar' />
+		</fileset>
+		<fileset dir='${voltdb.lib}/lib'>
+			<include name='*.jar' />
+		</fileset>
+	</path>
+
+	<!--
+***************************************
+PRIMARY ENTRY POINTS
+***************************************
+-->
+
+	<target name="main" depends="clean,srccompile, pack,AIdbService,tar" />
+
+
+	<target name="pack" depends="srccompile">
+		<jar destfile="${build.dir}/${voltdb.sdk.name}" basedir="${build.dir}">
+		</jar>
+	</target>
+
+	<target name="AIdbService" depends="srccompile">
+		<java fork="yes" failonerror="true" classname="org.voltdb.compiler.VoltCompiler">
+			<classpath refid='project.classpath' />
+			<classpath refid='voltdb.classpath' />
+			<!--jvmarg value="-Djava.library.path=${voltdb.classpath}" /-->
+			<jvmarg value="-Dlog4j.configuration=file:log4j.properties" />
+			<!--jvmarg value="-Xrunjdwp:transport=dt_socket,address=5005,server=y"/-->
+			<arg value="project.xml" />
+			<!-- project file -->
+			<arg value="${db.service.name}" />
+			<!-- output -->
+		</java>
+		<!-- update jar
+		<jar jarfile="demo.jar" update="true">
+			<fileset file="${build.dir}/*.ini"/>
+		</jar> -->
+	</target>
+
+	<target name="tar">
+		<copyfile dest="${deploy.dir}/ailib/${db.service.name}" src="${db.service.name}" forceoverwrite="true" />
+
+		<delete includeemptydirs="true" failonerror='false'>
+			<fileset dir="." defaultexcludes="yes">
+				<include name="${db.service.name}" />
+			</fileset>
+		</delete>
+		
+		<zip destfile="${deploy.name}">
+			<zipfileset dir="${deploy.dir}" />
+		</zip>
+	</target>
+
+	<!--
+***************************************
+CLEANING
+***************************************
+-->
+
+	<target name='clean' description="remove all compiled files">
+		<delete includeemptydirs="true" failonerror='false'>
+			<fileset dir="${build.dir}" includes="**/*" />
+			<fileset dir="." defaultexcludes="yes">
+				<include name="${voltdb.sdk.name}" />
+				<include name="${deploy.name}" />
+			</fileset>
+		</delete>
+	</target>
+
+	<!--
+***************************************
+JAVA COMPILATION
+***************************************
+-->
+
+	<target name="srccompile">
+		<mkdir dir='${build.dir}' />
+		<javac target="1.6" srcdir="${src.dir}" destdir='${build.dir}' excludes="test/**" debug='true'>
+			<classpath refid="project.classpath" />
+		</javac>
+		<copy todir="${build.dir}">
+			<fileset dir="${src.dir}">
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>
