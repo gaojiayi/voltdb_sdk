@@ -24,7 +24,30 @@ VoltDB提供三种能力：K-safety，网络故障检测，存活结点重连(re
 - 引入lib依赖  
   ![lib_jars](assets/lib_jars.png)  
 - 执行  
-  ![main_example](assets/main_example.png)  
+```
+public class QueryTest
+{
+
+	static final IVoltdbDao dato = VoltdbFactroy.newInstance();
+
+	public static void main(String[] args)
+	{
+		long btime = System.currentTimeMillis();
+		try
+		{
+			List<?> lists = dato.executeQuery("select * from dual", Empoyee.class);
+			dato.executeUpdate("", "","","","");
+
+			for (Object en : lists)
+			{
+				System.out.println(en);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+```
 - POJO 注意:在创建数据库实体的时候需要使用特定的注解  
   ![pojo_example](assets/pojo_example.png)  
 
