@@ -36,7 +36,7 @@ public class DBConfigSource
 	private static final String CFG_RULES = "dbconfig-Rules.xml";
 
 	//环境变量
-	private static final String AI_VOLTDB_SDK = "AI_VOLTDB_CFG";
+	private static final String VOLTDB_CFG = "VOLTDB_CFG";
 
 	private static final Object lock = new Object();
 
@@ -118,7 +118,7 @@ public class DBConfigSource
 
 		if (!file.exists())
 		{
-			String path = System.getenv(AI_VOLTDB_SDK);
+			String path = System.getenv(VOLTDB_CFG);
 			
 			file = new File(path);
 		}

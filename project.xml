@@ -2,7 +2,7 @@
 <project>
 	<database>
 		<schemas>
-			<schema path='aivoltdb.sql' />
+			<schema path='voltdb.sql' />
 		</schemas>
 	</database>
 </project>

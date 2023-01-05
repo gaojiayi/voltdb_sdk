@@ -131,6 +131,6 @@ fi
 # run it
 #-Xrunjdwp:transport=dt_socket,address=5005,server=y
 export CMDVAL="$JAVA -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp -Djava.awt.headless=true $JAVA_HEAP_MAX $VOLTDB_OPTS -Dlog4j.configuration=file://${LOG4J_CONFIG_PATH} "
-export CMDVAL=$CMDVAL"-classpath $CLASSPATH com.ai.aif.cache.voltdb.core.utils.JDBCLoader"
+export CMDVAL=$CMDVAL"-classpath $CLASSPATH com.gaojy.cache.voltdb.core.utils.JDBCLoader"
 #echo $CMDVAL "$@"
 exec $CMDVAL "$@"

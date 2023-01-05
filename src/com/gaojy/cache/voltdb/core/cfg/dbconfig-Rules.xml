@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <digester-rules>
 	<pattern value="db-config">
-		<object-create-rule classname="com.ai.aif.cache.voltdb.core.cfg.pojo.BaseCfg" />
+		<object-create-rule classname="com.gaojy.cache.voltdb.core.cfg.pojo.BaseCfg" />
 
 		<bean-property-setter-rule pattern="datasource-lbs"
 			propertyname="loadType" />
@@ -9,11 +9,11 @@
 			propertyname="interval" />
    
 		<pattern value="lru">
-			<object-create-rule classname="com.ai.aif.cache.voltdb.core.cfg.pojo.LRUNode" />
+			<object-create-rule classname="com.gaojy.cache.voltdb.core.cfg.pojo.LRUNode" />
 
 			<pattern value="property">
 				<object-create-rule
-					classname="com.ai.aif.cache.voltdb.core.cfg.pojo.PropertyNode" />
+					classname="com.gaojy.cache.voltdb.core.cfg.pojo.PropertyNode" />
 				<set-properties-rule />
 				<set-next-rule methodname="setNodeValue" />
 			</pattern>
@@ -21,13 +21,13 @@
 		</pattern>
 		
 		<pattern value="datasource-list/datasource">
-			<object-create-rule classname="com.ai.aif.cache.voltdb.core.cfg.pojo.DBNode" />
+			<object-create-rule classname="com.gaojy.cache.voltdb.core.cfg.pojo.DBNode" />
 			<set-properties-rule>
 				<alias attr-name="dbtype" prop-name="dbType" />
 			</set-properties-rule>
 			<pattern value="property">
 				<object-create-rule
-					classname="com.ai.aif.cache.voltdb.core.cfg.pojo.PropertyNode" />
+					classname="com.gaojy.cache.voltdb.core.cfg.pojo.PropertyNode" />
 				<set-properties-rule />
 				<set-next-rule methodname="setNodeValue" />
 			</pattern>
